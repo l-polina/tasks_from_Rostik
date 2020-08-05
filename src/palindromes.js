@@ -1,14 +1,18 @@
-function makesListOfStrings(text) {
-  return text.split(/[^a-zA-Z]/).filter((str) => str.length != 0);
+function isPalindrome(str) {
+  return str === str.split("").reverse().join("");
 }
 
-function findsPalindromes(text) {
-  let array = makesListOfStrings(text).map((item) => item.toLowerCase());
-  return array.filter((item) => item === item.split("").reverse().join(""));
+function splitIntoWords(text) {
+  return text.split(/[^a-zA-Z]/).filter((str) => str.length > 1);
 }
 
-function countsPalindromes(text) {
-  let objectPalindromes = findsPalindromes(text).reduce((result, current) => {
+function findPalindromes(text) {
+  let array = splitIntoWords(text).map((item) => item.toLowerCase());
+  return array.filter((item) => isPalindrome(item));
+}
+
+function countPalindromes(text) {
+  let objectPalindromes = findPalindromes(text).reduce((result, current) => {
     result[current] = (result[current] || 0) + 1;
     return result;
   }, {});
@@ -16,4 +20,4 @@ function countsPalindromes(text) {
   return objectPalindromes;
 }
 
-module.exports = countsPalindromes;
+module.exports = countPalindromes;
